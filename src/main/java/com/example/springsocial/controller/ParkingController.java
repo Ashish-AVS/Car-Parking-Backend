@@ -3,6 +3,7 @@ package com.example.springsocial.controller;
 
 import com.example.springsocial.model.*;
 import com.example.springsocial.repository.AdminRepository;
+import com.example.springsocial.repository.BookingRepository;
 import com.example.springsocial.repository.UserRepository;
 import com.example.springsocial.repository.WaitListRepository;
 import com.example.springsocial.service.ParkingService;
@@ -29,11 +30,19 @@ public class ParkingController {
     WaitListRepository waitListRepository;
 
     @Autowired
+    BookingRepository bookingRepository;
+
+    @Autowired
     UserRepository userRepository;
 
     @GetMapping @RequestMapping("/lot")
     public List<ParkingLot> getLots(){
         return parkingService.getAllLots();
+    }
+
+    @GetMapping @RequestMapping("/bookings")
+    public List<Booking> getBookings(){
+        return bookingRepository.findAll();
     }
 
     @GetMapping("/waitlist")

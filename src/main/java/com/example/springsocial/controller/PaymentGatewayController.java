@@ -16,14 +16,14 @@ import com.stripe.model.Charge;
 @RequestMapping("/api")
 public class PaymentGatewayController {
 
-    @PostMapping("/stripe/charge")
+    @PostMapping("/payment/charge")
     public ResponseEntity<String> createCharge(@RequestBody StripeClient stripeCharge) {
         try {
             // creating the charge
             Stripe.apiKey = "sk_test_51K2RXcSFlRY3Q4axxb9vODd9NgNtcvNbbWwuyifuATgWBycwFP17ofuA00Fc92vPkwsNZg42AEwcapCp4C1HTssG00yoWd8ioP";
             Charge charge = Charge.create(stripeCharge.getCharge());
             System.out.println(charge);
-            return new ResponseEntity<String>("Success", HttpStatus.CREATED);
+            return new ResponseEntity<String>(charge.toString(), HttpStatus.CREATED);
         } catch (StripeException e) {
             e.printStackTrace();
             return new ResponseEntity<String>("Failure", HttpStatus.INTERNAL_SERVER_ERROR);
